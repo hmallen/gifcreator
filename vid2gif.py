@@ -1,4 +1,4 @@
-#!/usr/env python3
+#!/usr/bin/python3
 
 import argparse
 import logging
@@ -47,6 +47,8 @@ if __name__ == '__main__':
 
     for in_file in input_files:
         out_file = f'{os.path.dirname(in_file)}/{os.path.basename(in_file).split(".")[0]}.gif'
+        if out_file.startswith('/'):
+            out_file = out_file.lstrip('/')
         logger.debug(f'out_file: {out_file}')
 
         palettegen_param = "[0:v] palettegen"
@@ -75,4 +77,4 @@ if __name__ == '__main__':
             convert_cmd_list, capture_output=True, text=True)
         logger.info(f'convert_proc: {convert_proc}')
 
-        shutil.remove(palette_file)
+        os.remove(palette_file)
